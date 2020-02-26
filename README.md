@@ -1,8 +1,11 @@
 # flip3rdpartytest
 
-# for migrate
+for migrate
+
+```
 cd migrate
 php migrate.php
+```
 
 # for post disbursement
 cd api
