@@ -12,8 +12,8 @@ $post = new Requestdisbursement($db);
 
 $params = array(
     "bank_code" => "BNI",
-    "account_number" => "1234567890",
-    "amount" => 10000,
+    "account_number" => rand ( 1000000000 , 9999999999 ),
+    "amount" => rand ( 10000 , 99999 ),
     "remark" => "sample remark"
 );
 
@@ -34,7 +34,7 @@ $post->fee = $data->fee;
 // create post
 if ($post->createdisbursement()) {
     echo json_encode(
-        array('message' => 'Post Created')
+        array('message' => 'Post Created id: '.$data->id)
     );
 } else {
     echo json_encode(
