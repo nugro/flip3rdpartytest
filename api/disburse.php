@@ -10,7 +10,7 @@ $db = $database->getConnection();
 // instantiate Requestdisbursement object
 $post = new Requestdisbursement($db);
 
-$params = array (
+$params = array(
     "bank_code" => "BNI",
     "account_number" => "1234567890",
     "amount" => 10000,
