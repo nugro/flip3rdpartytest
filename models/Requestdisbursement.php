@@ -143,6 +143,7 @@ class Requestdisbursement
         $stmt->bindParam(':status', $this->status);
         $stmt->bindParam(':receipt', $this->receipt);
         $stmt->bindParam(':time_served', $this->time_served);
+        $stmt->bindParam(':timestamp', $this->timestamp);
         $stmt->bindParam(':id', $this->id);
 
         // execute query
