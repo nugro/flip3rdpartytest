@@ -33,12 +33,12 @@ php disbursementstatus.php 9999999999
 
 Example
 ```
-nugro@Nugros-MacBook-Pro flip3rdpartytest % cd migrate
-nugro@Nugros-MacBook-Pro migrate % php migrate.php 
-{"message":"Table Successfully Create"}%                                                                                                 nugro@Nugros-MacBook-Pro migrate % cd ..
-nugro@Nugros-MacBook-Pro flip3rdpartytest % cd api
-nugro@Nugros-MacBook-Pro api % php disburse.phpß
-{"message":"Post Created id: 6070319090"}%                                                                                               nugro@Nugros-MacBook-Pro api % php disbursementstatus.php 6070319090
-nugro@Nugros-MacBook-Pro api % php disbursementstatus.php 6070319090
-{"id":6070319090,"amount":10000,"status":"PENDING","timestamp":"2020-02-27 21:18:04","bank_code":"bni","account_number":"1234567890","beneficiary_name":"PT FLIP","remark":"sample remark","receipt":"https:\/\/flip-receipt.oss-ap-southeast-5.aliyuncs.com\/debit_receipt\/126316_3d07f9fef9612c7275b3c36f7e1e5762.jpg","time_served":"2020-02-27 21:27:04","fee":4000}%                                                 nugro@Nugros-MacBook-Pro api % 
+cd migrate
+php migrate.php 
+cd ..
+cd api
+php disburse.php
+{"message":"Post Created id: 6070319090"}                                                                               
+php disbursementstatus.php 6070319090
+{"id":6070319090,"amount":10000,"status":"PENDING","timestamp":"2020-02-27 21:18:04","bank_code":"bni","account_number":"1234567890","beneficiary_name":"PT FLIP","remark":"sample remark","receipt":"https:\/\/flip-receipt.oss-ap-southeast-5.aliyuncs.com\/debit_receipt\/126316_3d07f9fef9612c7275b3c36f7e1e5762.jpg","time_served":"2020-02-27 21:27:04","fee":4000}
 ```
