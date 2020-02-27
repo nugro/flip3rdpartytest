@@ -8,48 +8,51 @@ $database = new Connection();
 $db = $database->getConnection();
 
 // instantiate Requestdisbursement object
-$post = new Requestdisbursement($db);
+$reqCheckDisbursement = new Requestdisbursement($db);
 // get ID
-$post->id = isset($_GET['id']) ? $_GET['id'] : isset($argv[1]) ? $argv[1] : die();
-$post->checkdisbursementstatus();
+$reqCheckDisbursement->id = isset($_GET['id']) ? $_GET['id'] : isset($argv[1]) ? $argv[1] : die();
 
-if (!empty($post->bank_code)) {
+$data = json_decode($reqCheckDisbursement->funCurl('GET', 'application/json', $reqCheckDisbursement->id, $database->url, $database->token));
+
+if (!empty($data->bank_code)) {
 
     // update status and return value
-    if ($post->status != 'SUCCESS') {
-        if ($post->updatestatusdisbursement()) {
-            $post_arr = array(
-                "id" =>  $post->id,
-                "amount" => $post->amount,
-                "status" => $post->status,
-                "timestamp" => $post->timestamp,
-                "bank_code" => $post->bank_code,
-                "account_number" => $post->account_number,
-                "beneficiary_name" => $post->beneficiary_name,
-                "remark" => $post->remark,
-                "receipt" => $post->receipt,
-                "time_served" =>  $post->time_served,
-                "fee" => $post->fee
+    if ($reqCheckDisbursement->status != 'SUCCESS') {
+
+        $reqCheckDisbursement->id = $data->id;
+        $reqCheckDisbursement->amount = $data->amount;
+        $reqCheckDisbursement->status = $data->status;
+        $reqCheckDisbursement->timestamp = $data->timestamp;
+        $reqCheckDisbursement->bank_code = $data->bank_code;
+        $reqCheckDisbursement->account_number = $data->account_number;
+        $reqCheckDisbursement->beneficiary_name = $data->beneficiary_name;
+        $reqCheckDisbursement->remark = $data->remark;
+        $reqCheckDisbursement->receipt = $data->receipt;
+        $reqCheckDisbursement->time_served = $data->time_served;
+        $reqCheckDisbursement->fee = $data->fee;
+        
+        if ($reqCheckDisbursement->updatestatusdisbursement()) {
+            $dataArr = array(
+                "id" =>  $data->id,
+                "amount" => $data->amount,
+                "status" => $data->status,
+                "timestamp" => $data->timestamp,
+                "bank_code" => $data->bank_code,
+                "account_number" => $data->account_number,
+                "beneficiary_name" => $data->beneficiary_name,
+                "remark" => $data->remark,
+                "receipt" => $data->receipt,
+                "time_served" =>  $data->time_served,
+                "fee" => $data->fee
             );
             // make JSON
-            print_r(json_encode($post_arr));
+            print_r(json_encode($dataArr));
         }
     }
 } else {
-    $post->checkdisbursementstatus();
-    $post_arr = array(
-        "id" =>  $post->id,
-        "amount" => $post->amount,
-        "status" => $post->status,
-        "timestamp" => $post->timestamp,
-        "bank_code" => $post->bank_code,
-        "account_number" => $post->account_number,
-        "beneficiary_name" => $post->beneficiary_name,
-        "remark" => $post->remark,
-        "receipt" => $post->receipt,
-        "time_served" =>  $post->time_served,
-        "fee" => $post->fee
+    $dataArr = array(
+        "message" =>  "Data Not Found"
     );
     // make JSON
-    print_r(json_encode($post_arr));
+    print_r(json_encode($dataArr));
 }
