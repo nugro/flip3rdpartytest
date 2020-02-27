@@ -18,7 +18,7 @@ $params = array(
 );
 
 $data = json_decode($post->funCurl('POST', 'application/x-www-form-urlencoded', $params, $database->url, $database->token));
-
+print_r($data);
 $post->id = $data->id;
 $post->amount = $data->amount;
 $post->status = $data->status;
