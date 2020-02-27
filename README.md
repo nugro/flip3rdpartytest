@@ -1,5 +1,13 @@
 # flip3rdpartytest
 
+This Project Is Only For Testing Purpose
+
+1. Please setup the connection,url and token on file config/Connection.php
+2. Create Database manually
+3. Run Migrate
+4. Run post/request disbursement
+5. Run check disbursement status
+
 for migrate
 
 ```
