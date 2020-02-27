@@ -124,7 +124,8 @@ class Requestdisbursement
                 SET
                     status = :status,
                     receipt = :receipt,
-                    time_served = :time_served
+                    time_served = :time_served,
+                    timestamp = :timestamp
                 WHERE 
                     id = :id
                 ';
@@ -132,9 +133,11 @@ class Requestdisbursement
         $stmt = $this->conn->prepare($query);
 
         // clean data
-        $this->status = "SUCCESS";
-        $this->receipt = "https://flip-receipt.oss-ap-southeast-5.aliyuncs.com/debit_receipt/126316_3d07f9fef9612c7275b3c36f7e1e5762.jpg";
-        $this->time_served = date("Y-m-d H:i:s");
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->status = htmlspecialchars(strip_tags($this->status));
+        $this->receipt = htmlspecialchars(strip_tags($this->receipt));
+        $this->time_served = htmlspecialchars(strip_tags($this->time_served));
+        $this->timestamp = htmlspecialchars(strip_tags($this->timestamp));
 
         // bind the data
         $stmt->bindParam(':status', $this->status);
@@ -150,50 +153,5 @@ class Requestdisbursement
         printf("Error: %s. \n", $stmt->error);
 
         return false;
-    }
-
-    public function checkdisbursementstatus()
-    {
-        $query = 'SELECT
-                `timestamp` as timerequest,
-                bank_code,
-                account_number,
-                id,
-                amount,
-                `status`,
-                beneficiary_name,
-                remark,
-                receipt,
-                time_served,
-                fee
-                FROM
-                requestdisbursement
-                WHERE
-                id = ?
-                LIMIT 0,1';
-
-        // prepare statement
-        $stmt = $this->conn->prepare($query);
-
-        // bind id
-        $stmt->bindParam(1, $this->id);
-
-        // execute query
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // set properties
-        $this->id = $row['id'];
-        $this->amount = $row['amount'];
-        $this->status = $row['status'];
-        $this->timestamp = $row['timerequest'];
-        $this->bank_code = $row['bank_code'];
-        $this->account_number = $row['account_number'];
-        $this->beneficiary_name = $row['beneficiary_name'];
-        $this->remark = $row['remark'];
-        $this->receipt = $row['receipt'];
-        $this->time_served = $row['time_served'];
-        $this->fee = $row['fee'];
     }
 }
