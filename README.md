@@ -2,8 +2,8 @@
 
 This Project Is Only For Testing Purpose, Build with PHP 5.6 and MySql/MariaDB database.
 
-1. Please setup the connection,url and token on file config/Connection.php
-2. Create Database manually
+1. Create database name manually and setting to connection file
+2. Please setup the connection,url and token on file config/Connection.php
 3. Run Migrate
 4. Run post/request disbursement
 5. Run check disbursement status
